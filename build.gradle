@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     // Swagger
+    // https://springdoc.org/
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
 
 }
