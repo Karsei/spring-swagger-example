@@ -2,11 +2,8 @@ package kr.pe.karsei.springswaggerexample;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,16 +17,31 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                .addServersItem(new Server()
-                        .url("https://google.com"));
+                .info(new io.swagger.v3.oas.models.info.Info()
+                        .title("조은 API")
+                        .version("1.0.0")
+                        .license(new License().name("MIT"))
+                        .description("정말정말 조아요")
+                )
+                //.addServersItem(new Server()
+                //        .url("https://google.com"));
+        ;
     }
-//    @Bean
-//    public GroupedOpenApi openApi() {
-//        String[] paths = {"/v1/**"};
-//
-//        return GroupedOpenApi.builder()
-//                .group("yeah")
-//                .pathsToMatch(paths)
-//                .build();
-//    }
+
+    @Bean
+    public GroupedOpenApi actuator() {
+        return GroupedOpenApi.builder()
+                .group("Actuator")
+                //.displayName("액츄에이터")
+                .pathsToMatch("/actuator/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi apis() {
+        return GroupedOpenApi.builder()
+                .group("API")
+                .pathsToMatch("/api/**")
+                .build();
+    }
 }
